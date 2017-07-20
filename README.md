@@ -10,4 +10,7 @@ Playout will allow individual users to select fields on any object that are impo
 
 Page Layouts allow an admin to configure fields that's important to an organization. This app allows further control to individual users to configure which fields are important to them. It allows users to filter noise from a page layout and be even more productive.
 
-### 
+
+#### Architecture
+![Architecture](https://raw.githubusercontent.com/jrattanpal/Playout/master/Assets/images/playout_architecture.png)
+
