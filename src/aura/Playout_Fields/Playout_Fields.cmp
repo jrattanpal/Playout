@@ -1,0 +1,45 @@
+<aura:component >
+    <aura:attribute name="debugServer" type="Boolean" default="false"/>
+    <aura:attribute name="debugClient" type="Boolean" default="false"/>
+    <aura:attribute name="maxAllowedFields" type="Integer" default="10"/>
+    <aura:attribute name="sObjectName" type="String" />
+
+
+    <aura:attribute name="namespace" type="String"  />
+    <aura:attribute name="availableFields" type="Object[]" />
+    <aura:attribute name="userFields" type="object[]" />
+
+    <aura:attribute name="selectField" type="String" default="-1" />
+    <aura:attribute name="orderField" type="Integer" default="0"/>
+
+    <aura:attribute name="tableData" type="Object"/>
+
+    <aura:registerEvent name="Evt_UserFieldsChanged" type="c:Evt_UserFieldsChanged"/>
+    <!-- For using ApexBridge Library -->
+    <c:ETLC_ApexBridge aura:id="ETLC_ApexBridge" debugServer="{!v.debugServer}" debugClient="{!v.debugClient}" />
+
+    <!-- For using Utils library -->
+    <c:Utils debugClient="{!v.debugClient}" aura:id="utils"  />
+
+    <div aura:id="uiMessage">{!v.body}</div>
+
+    <div class="slds-form slds-form_stacked">
+            <lightning:select name="selectField" label="Select a field" value="{!v.selectField}" required="true">
+                <option value="-1">--Select a Field--</option>
+                <aura:iteration items="{!v.availableFields}" var="field">
+                    <option value="{!field.apiname}">{!field.label}</option>
+                </aura:iteration>
+            </lightning:select>
+
+
+            <lightning:input aura:id="orderField" label="Order" placeholder="Number >= 0"  name="orderField" type="number" min="0"  max="99" value="{!v.orderField}" required="true"/>
+
+            <lightning:button variant="brand" label="Add/Update Field" onclick="{!c.saveFields}" />
+    </div>
+    <!-- Make sure to convert the data object into an aura attribute (e.g., {!v.data}) -->
+    <br/><br/>
+
+
+    <c:Playout_DataTable namespace="{!v.namespace}" userFields="{!v.userFields}" actionRemove="{!c.removeFields}"/>
+
+</aura:component>

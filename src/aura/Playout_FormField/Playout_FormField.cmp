@@ -1,0 +1,15 @@
+<!--
+ - Created by jrattanpal on 7/18/17.
+ -->
+
+<aura:component description="Platform_FormField">
+    <aura:attribute name="label" type="String"/>
+    <aura:attribute name="value" type="String" />
+    <div class="slds-form-element">
+        <label class="slds-form-element__label">{!v.label}</label>
+        <div class="slds-form-element__control">
+            <ui:outputText value="{!v.value}"/>
+        </div>
+    </div>
+    <br/>
+</aura:component>

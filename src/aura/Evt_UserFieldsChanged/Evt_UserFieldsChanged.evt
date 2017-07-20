@@ -1,0 +1,2 @@
+<aura:event type="COMPONENT" description="Evt_UserFieldsChanged">
+</aura:event>

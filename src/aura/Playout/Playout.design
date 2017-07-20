@@ -1,0 +1,10 @@
+<design:component >
+    <design:attribute name="debugServer" default="false" label="Debug Apex" />
+    <design:attribute name="debugClient" default="false" label="Debug JavaScript"/>
+    <design:attribute name="maxAllowedFields" default="10" label="Maximum allowed fields"/>
+    <!--
+    <sfdc:objects>
+        <sfdc:object>Case</sfdc:object>
+    </sfdc:objects>
+    -->
+</design:component>

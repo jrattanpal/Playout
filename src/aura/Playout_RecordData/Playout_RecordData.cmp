@@ -1,0 +1,8 @@
+<!--
+ - TEMPORARY component because LDS is not available for Case at this time
+ -->
+
+<aura:component description="Playout_RecordData">
+    <aura:attribute name="recordId" type="String" />
+    <aura:attribute name="targetFields" type="String" />
+</aura:component>

@@ -1,0 +1,47 @@
+<aura:component description="Playout Manager" implements="flexipage:availableForRecordHome,force:hasRecordId,force:hasSObjectName" access="global">
+
+    <aura:attribute name="debugServer" type="Boolean" default="false" access="global"/>
+    <aura:attribute name="debugClient" type="Boolean" default="false" access="global"/>
+    <aura:attribute name="maxAllowedFields" type="Integer" default="10" access="global"/>
+    <aura:attribute name="sObjectListForLDS" type="Object" default='{"Account": true, "AccountTeamMember": true,"Asset": true,"AssetRelationship": true,"AssignedResource": true,"AttachedContentNote": true,"Campaign": true,"CampaignMember": true,"Contact": true,"ContentWorkspace": true,"Contract": true,"ContractContactRole": true,"CustomObjects": true,"Entitlement": true,"EnvironmentHubMember": true,"LicensingRequest": true,"MaintenanceAsset": true,"MaintenancePlan": true,"MarketingAction": true,"MarketingResource": true,"OperatingHours": true,"ProcessInstanceHistory": true,"Quote": true,"ResourceAbsence": true,"ServiceAppointment": true,"ServiceResource": true,"ServiceResourceSkill": true,"ServiceTerritory": true,"ServiceTerritoryMember": true,"ServiceTerritoryLocation": true,"SkillRequirement": true,"SocialPost": true,"Tenant": true,"TimeSheet": true,"TimeSheetEntry": true,"TimeSlotShipment": true,"UsageEntitlement": true,"UsageEntitlementPeriod": true,"WorkOrder": true,"WorkOrderLineItem": true,"WorkType": true}' />
+
+
+
+    <aura:attribute name="namespace" type="String" default="playout" />
+
+    <aura:attribute name="availableFields" type="Object[]" />
+    <aura:attribute name="userFields" type="object[]" />
+
+    <aura:attribute name="record" type="Object"/>
+    <aura:attribute name="simpleRecord" type="Object"/>
+    <aura:attribute name="recordError" type="String"/>
+
+
+    <!-- For using ApexBridge Library -->
+    <c:ETLC_ApexBridge aura:id="ETLC_ApexBridge" debugServer="{!v.debugServer}" debugClient="{!v.debugClient}" />
+
+    <!-- For using Utils library -->
+    <c:Utils debugClient="{!v.debugClient}" aura:id="utils"  />
+
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}"/>
+    <aura:handler name="Evt_UserFieldsChanged" event="c:Evt_UserFieldsChanged" action="{!c.handleEvtUserFieldsChanged}" />
+
+
+    <div class="slds">
+        <lightning:tabset  variant="scoped">
+            <lightning:tab label="{! v.sObjectName + ' Fields'}">
+                <c:Playout_Form recordId="{!v.recordId}" namespace="{!v.namespace}" sObjectName="{!v.sObjectName}"
+                                         userFields="{!v.userFields}" sObjectListForLDS="{!v.sObjectListForLDS}"
+                                         debugServer="{!v.debugServer}" debugClient="{!v.debugClient}"/>
+            </lightning:tab>
+            <lightning:tab label="Field Manager">
+                <aura:set attribute="label">
+                    <lightning:icon iconName="utility:settings" />
+                </aura:set>
+                <c:Playout_Fields namespace="{!v.namespace}" maxAllowedFields="{!v.maxAllowedFields}" sObjectName="{!v.sObjectName}"
+                                           availableFields="{!v.availableFields}" userFields="{!v.userFields}"
+                                           debugServer="{!v.debugServer}" debugClient="{!v.debugClient}"/>
+            </lightning:tab>
+        </lightning:tabset>
+    </div>
+</aura:component>

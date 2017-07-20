@@ -1,0 +1,13 @@
+.THIS .slds-input{
+    border-width: 0px;
+}
+.THIS .slds-input:read-only:hover, .THIS .slds-input:read-only:focus{
+    background-color: transparent;
+}
+.THIS .slds-input:read-only:active{
+    background-color: transparent;
+}
+.THIS .slds-input:focus, .THIS .slds-input:active {
+    border-color: transparent;
+    box-shadow: 0 0 0px transparent;
+}

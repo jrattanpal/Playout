@@ -1,0 +1,83 @@
+<!--
+ - Created by jrattanpal on 7/13/17.
+ -->
+
+<aura:component description="Playout_Form">
+    <aura:attribute name="recordId" type="String" />
+    <aura:attribute name="availableFields" type="Object[]" />
+    <aura:attribute name="userFields" type="object[]" />
+    <aura:attribute name="namespace" type="String"  />
+    <aura:attribute name="sObjectName" type="String" />
+
+    <aura:attribute name="debugServer" type="Boolean" default="false"/>
+    <aura:attribute name="debugClient" type="Boolean" default="false"/>
+
+
+
+    <!-- Use if current object stores LDS -->
+    <aura:attribute name="sObjectListForLDS" type="Object"  />
+    <aura:attribute name="canUseLDS" type="Boolean" default="false"/>
+    <aura:attribute name="userFieldsForLDS" type="String" />
+
+
+    <!-- LDS attributes; if applicable -->
+    <aura:attribute name="record" type="Object"/>
+    <aura:attribute name="_record" type="Object"/><!--read only to listen to changes -->
+    <aura:attribute name="simpleRecord" type="Object"/>
+    <aura:attribute name="recordError" type="String"/>
+
+    <!-- For using ApexBridge Library -->
+    <c:ETLC_ApexBridge aura:id="ETLC_ApexBridge" debugServer="{!v.debugServer}" debugClient="{!v.debugClient}" />
+
+    <!-- For using Utils library -->
+    <c:Utils debugClient="{!v.debugClient}" aura:id="utils"  />
+
+    <aura:handler name="change" value="{!v.userFields}" action="{!c.refreshData}"/>
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}"/>
+    <aura:handler name="Evt_UserFieldsChanged" event="c:Evt_UserFieldsChanged" action="{!c.refreshData}" />
+
+
+    <div aura:id="uiMessage">{!v.body}</div>
+
+    <aura:if isTrue="{!v.canUseLDS}">
+
+        <force:recordData aura:id="recordLoader"
+                          recordId="{!v.recordId}"
+                          layoutType="FULL"
+                          targetRecord="{!v._record}"
+                          targetFields="{!v.simpleRecord}"
+                          targetError="{!v.recordError}"
+                          recordUpdated="{!c.recordUpdated}"
+
+        />
+
+
+        <!-- Display Lightning Data Service errors, if any -->
+        <aura:if isTrue="{!not(empty(v.recordError))}">
+            <div class="recordError">
+                <ui:message title="Error" severity="error" closable="true">
+                        {!v.recordError}
+                </ui:message>
+            </div>
+        </aura:if>
+    </aura:if>
+
+
+    <div class="slds-grid slds-wrap">
+        <div class="slds-col--padded slds-size--1-of-1 slds-medium-size--1-of-2">
+            <div aura:id="formcol1"></div>
+
+        </div>
+        <div class="slds-col--padded slds-size--1-of-1 slds-medium-size--1-of-2">
+            <div aura:id="formcol2"></div>
+        </div>
+    </div>
+
+
+
+    <aura:if isTrue="{!v.canUseLDS ==false}">
+        <lightning:button aura:id="refreshButton" label="Refresh Data" value="RefreshButton" onclick="{!c.refreshData}" class="slds-align--absolute-center" />
+        <br/>
+        <div class="slds-text-body_small">* Click "Refresh Data"  button to see updated data after record change.</div>
+    </aura:if>
+</aura:component>

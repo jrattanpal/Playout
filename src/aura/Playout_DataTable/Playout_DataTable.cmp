@@ -1,0 +1,36 @@
+<aura:component description="Playout_DataTable">
+    <aura:attribute name="actionRemove" type="Object" />
+    <aura:attribute name="userFields" type="object[]" />
+    <aura:attribute name="namespace" type="String"  />
+
+    <table class="slds-table slds-table_bordered slds-table_cell-buffer slds-table_striped">
+        <thead>
+        <tr class="slds-text-title_caps">
+            <th scope="col">
+                <div class="slds-truncate" title="Field">Field</div>
+            </th>
+            <th scope="col">
+                <div class="slds-truncate" title="Order">Order</div>
+            </th>
+            <th scope="col">
+                <div class="slds-truncate" title="Action">Action</div>
+            </th>
+        </tr>
+        </thead>
+        <tbody>
+            <aura:iteration items="{!v.userFields}" var="field">
+                <tr class="slds-hint-parent">
+                    <th scope="row" data-label="Field">
+                        <div class="slds-truncate" title="{!field.apiname}">{!field.label}</div>
+                    </th>
+                    <th scope="row" data-label="Order">
+                        <div class="slds-truncate" title="{!field.order}">{!field.order}</div>
+                    </th>
+                    <th scope="row" data-label="Action">
+                        <lightning:button label="Remove Field" value="{!field.apiname}" onclick="{!v.actionRemove}"/>
+                    </th>
+                </tr>
+            </aura:iteration>
+        </tbody>
+    </table>
+</aura:component>
