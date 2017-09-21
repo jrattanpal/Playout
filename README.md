@@ -10,6 +10,9 @@ Playout will allow individual users to select fields on any object that are impo
 
 Page Layouts allow an admin to configure fields that's important to an organization. This app allows further control to individual users to configure which fields are important to them. It allows users to filter noise from a page layout and be even more productive.
 
+<a href="https://githubsfdeploy.herokuapp.com?owner=jrattanpal&repo=Playout" target="_blank">
+    <img alt="Deploy to Salesforce" src="https://raw.githubusercontent.com/afawcett/githubsfdeploy/master/deploy.png">
+</a>
 
 #### Demo
 [![Playout - Your Personalized Page Layout](https://img.youtube.com/vi/a23oOp7GlzI/0.jpg)](https://www.youtube.com/watch?v=a23oOp7GlzI)
